@@ -1,4 +1,4 @@
-# Shiftcare
+# Shiftcare JSON Explorer &nbsp;[![ci](https://github.com/yuhonas/shiftcare/actions/workflows/ci.yml/badge.svg)](https://github.com/yuhonas/shiftcare/actions/workflows/ci.yml)
 
 TODO: Delete this and the text below, and describe your gem
 
