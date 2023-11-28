@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "shiftcare"
+require "optparse"
+require "json"
+
+# Shiftcare::Command.new(ARGV).run
+
+options = {}
+
+# NOTE: You could pull the option parsing into another class eg Shiftcare::Command.new(ARGV) which
+# would make it testable but if just kept this simple for now
+OptionParser.new do |opts|
+  opts.banner = "#{File.basename($PROGRAM_NAME)} CLI v#{Shiftcare::VERSION} [filename|STDIN] [options]"
+  opts.separator "OPTIONS:"
+
+  opts.on("-s", "--search KEYWORD", "Search for KEYWORD within the dataset") do |s|
+    options[:search] = s
+  end
+
+  opts.on("-d", "--duplicates", "List all duplicates within the dataset") do |_s|
+    options[:duplicates] = true
+  end
+end.parse!
+
+data = JSON.parse(ARGF.read)
+engine = Shiftcare::NaiveEngine.new(data)
+
+# NOTE: Options are mutually exclusive at present, so we can just use an if/else here but
+# you could potentially stack options
+# eg. if you wanted to search for a keyword then list all duplicates within the search results
+results = if options[:search]
+            engine.search(options[:search])
+          elsif options[:duplicates]
+            engine.duplicates
+          end
+
+# reoutput in JSON format so you could mutually pipe/mutate it with other commands
+puts results.to_json
