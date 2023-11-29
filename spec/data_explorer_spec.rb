@@ -1,5 +1,5 @@
 # rubocop:disable all
-RSpec.describe Shiftcare::NaiveExplorer do
+RSpec.describe Shiftcare::DataExplorer do
   let(:explorer) { described_class.new(data) }
   let(:data) { JSON.load_file(File.expand_path("./fixtures/clients.json", __dir__)) }
 

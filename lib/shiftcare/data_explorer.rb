@@ -2,9 +2,9 @@
 
 module Shiftcare
   # a simple class to explore data based on the schema of the JSON in spec/fixtures/clients.json
-  # aptly named as the implementations are incredible naive/simple :)
+  # the implementations below are very naive
   # see design goals/limitations in README.doc for the rationale and tradeoffs
-  class NaiveExplorer
+  class DataExplorer
     attr_accessor :data
 
     def initialize(data)

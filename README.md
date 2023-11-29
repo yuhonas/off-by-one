@@ -36,20 +36,20 @@ OPTIONS:
     -s, --search KEYWORD             Search for KEYWORD within the dataset
     -d, --duplicates                 List all duplicates within the dataset
     -h, --help                       Show this message
-    -v, --version                    Show this message
+    -v, --version                    Show the current version
 ```
 Data can be provided either as filename or through STDIN, there is a sample fixture of data under `spec/fixtures/clients.json`
 
 #### Example
 
 ```
-$ ./bin/shiftcare-cli spec/fixtures/clients.json  --search john
+$ ./bin/shiftcare-cli ./spec/fixtures/clients.json --search john
 {"id":1,"full_name":"John Doe","email":"john.doe@gmail.com"}
 ```
 or alternatively if you wish to use STDIN
 
 ```
-$ cat spec/fixtures/clients.json | ./bin/shiftcare-cli --search john
+$ cat ./spec/fixtures/clients.json | ./bin/shiftcare-cli --search john
 ```
 
 All data is returned in `JSON` format for further manipulation if you wish
@@ -59,7 +59,7 @@ There is console for interactive data exploration, it also takes either a file o
 
 #### Example
 ```
-$ ./bin/console spec/fixtures/clients.json
+$ ./bin/console ./spec/fixtures/clients.json
 
 Welcome to the shiftcare JSON explorer
 15 records loaded.
@@ -67,20 +67,21 @@ A helper instance '@explorer' is available for you to interactively explore this
 >>
 ```
 
-Data can be explored using the `@explorer` instance eg.
+Data can be explored using the [@explorer](./lib/shiftcare/data_explorer.rb) instance eg.
 
 ```
->> @explorer.search('james')
+>> @explorer.search 'james'
 => {"id"=>8, "full_name"=>"James Wilson", "email"=>"james.wilson@yandex.com"}
 ```
 
 ## Design Goals
 The following goals were kept in mind during development
 
+* Simplicity
 * Composability
 * Seperation of concerns
 * Principle of least suprise
-* Dependency Injection (for testability)
+* Dependency Injection (for loose coupling & testability)
 
 However it is _over-designed_ purely for discussion (which could come back and bite me when we build on it), I would think very diffently about a real world practical application
 
@@ -93,18 +94,18 @@ However it is _over-designed_ purely for discussion (which could come back and b
 
 At present there are the following limitations
 
-* Search is matched insensitively, no partial word matching and only the first is returned, a `FULL TEXT` search engine would solve
+* Search is matched insensitively, no partial matching _within_ words, and only the first match is returned, a `FULL TEXT` search engine would solve
 all these issues
 * The Implementation is tied to the schema of [clients.json](./spec/fixtures/clients.json)
 * Only accepts JSON (other interchange formats could be supported potentially)
-
+* There is limited error handling eg. bad json/incorrect schema etc
 
 ## Performance
 
 No performance SLA's were given for the project however
 
-* Current performance for the search algorithm is `O(n)`, performance will degrade lineraly in proportion to the number of items
-* Memory performance will also degrade lineraly as all items in the `JSON` are loaded in at boot time this could be remedied via data streaming
+* Current performance for the search algorithm is `O(n)`, performance will degrade linearly in proportion to the number of items
+* Memory will also degrade lineraly as all items in the `JSON` are loaded in at boot time this could be remedied via data streaming
 
 ### Suggestions
 

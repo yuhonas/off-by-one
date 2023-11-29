@@ -30,14 +30,14 @@ OptionParser.new do |opts|
     exit
   end
 
-  opts.on_tail("-v", "--version", "Show this message") do
+  opts.on_tail("-v", "--version", "Show the current version") do
     puts PROGRAM_NAME_AND_VERSION
     exit
   end
 end.parse!
 
 # read the data from a file or STDIN, ARGV would have been mutated to remove options with the parse! call above
-explorer = Shiftcare::NaiveExplorer.new(JSON.parse(ARGF.read))
+explorer = Shiftcare::DataExplorer.new(JSON.parse(ARGF.read))
 
 # convert the returned hash to JSON so you could potentially pipe/mutate the output with other commands
 puts Shiftcare::CommandRunner.new(explorer).run(options).to_json
