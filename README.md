@@ -1,35 +1,131 @@
 # Shiftcare JSON Explorer &nbsp;[![test & lint](https://github.com/yuhonas/shiftcare/actions/workflows/ci.yml/badge.svg)](https://github.com/yuhonas/shiftcare/actions/workflows/ci.yml)
 
-TODO: Delete this and the text below, and describe your gem
+## Background
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/shiftcare`. To experiment with that code, run `bin/console` for an interactive prompt.
+You are tasked with building a minimalist command-line application using Ruby. Given a JSON dataset with [clients](./spec/fixtures/clients.json), the application will need to offer two commands:
+
+* Search through all clients and return those with names partially matching a given search query
+* Find out if there are any clients with the same email in the dataset, and show those duplicates if any are found.
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+You can checkout the repo using
 
-Install the gem and add to the application's Gemfile by executing:
+```
+git clone git@github.com:yuhonas/shiftcare.git
+```
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+After cloning you will need to execute `./bin/setup` to install any dependencies
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+or alternatively install the gem directly from the repo (it's not published to ruby gems) by adding the following to your `Gemfile`
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+```
+gem "shiftcare", github: "yuhonas/shiftcare"
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+There is a CLI and Interactive Console
 
-## Development
+### CLI
+There is a basic CLI that facilitates some simple data exploration, the following options are available
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```
+shiftcare-cli v0.1.0 [filename|STDIN] [options]
+OPTIONS:
+    -s, --search KEYWORD             Search for KEYWORD within the dataset
+    -d, --duplicates                 List all duplicates within the dataset
+    -h, --help                       Show this message
+    -v, --version                    Show this message
+```
+Data can be provided either as filename or through STDIN, there is a sample fixture of data under `spec/fixtures/clients.json`
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+#### Example
 
-## Contributing
+```
+$ ./bin/shiftcare-cli spec/fixtures/clients.json  --search john
+{"id":1,"full_name":"John Doe","email":"john.doe@gmail.com"}
+```
+or alternatively if you wish to use STDIN
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/shiftcare. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/shiftcare/blob/main/CODE_OF_CONDUCT.md).
+```
+$ cat spec/fixtures/clients.json | ./bin/shiftcare-cli --search john
+```
 
-## Code of Conduct
+All data is returned in `JSON` format for further manipulation if you wish
 
-Everyone interacting in the Shiftcare project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/shiftcare/blob/main/CODE_OF_CONDUCT.md).
+### Console
+There is console for interactive data exploration, it also takes either a file or STDIN
+
+#### Example
+```
+$ ./bin/console spec/fixtures/clients.json
+
+Welcome to the shiftcare JSON explorer
+15 records loaded.
+A helper instance '@explorer' is available for you to interactively explore this data
+>>
+```
+
+Data can be explored using the `@explorer` instance eg.
+
+```
+>> @explorer.search('james')
+=> {"id"=>8, "full_name"=>"James Wilson", "email"=>"james.wilson@yandex.com"}
+```
+
+## Design Goals
+The following goals were kept in mind during development
+
+* Composability
+* Seperation of concerns
+* Principle of least suprise
+* Dependency Injection (for testability)
+
+However it is _over-designed_ purely for discussion (which could come back and bite me when we build on it), I would think very diffently about a real world practical application
+
+## Assumptions
+
+* This is largely an academic exercise to spur conversation rather then a practical exercise
+* We'll be using only JSON with the provided Schema
+
+## Limitations
+
+At present there are the following limitations
+
+* Search is matched insensitively, no partial word matching and only the first is returned, a `FULL TEXT` search engine would solve
+all these issues
+* The Implementation is tied to the schema of [clients.json](./spec/fixtures/clients.json)
+* Only accepts JSON (other interchange formats could be supported potentially)
+
+
+## Performance
+
+No performance SLA's were given for the project however
+
+* Current performance for the search algorithm is `O(n)`, performance will degrade lineraly in proportion to the number of items
+* Memory performance will also degrade lineraly as all items in the `JSON` are loaded in at boot time this could be remedied via data streaming
+
+### Suggestions
+
+For scale, there's many many questions about the design goals, traffic patterns, what alternatives there are and if this is even fit for purpose, my off the cuff suggestion would be a database, for `FULL TEXT` search, `INDEX`es which would scale horizontally (particulary) that it's `READ` heavy but let's discuss
+
+## Alternatives Solutions
+
+The following are simple one liners to the initial problems posited (that'd i'd probably start with in the real world depending)
+
+### Searching JSON by name
+```
+$ cat clients.json | jq --raw-output '.[] | .full_name' | ag "john"
+
+John Doe
+Alex Johnson
+```
+
+### Getting all duplicates
+```
+$ cat clients.json | jq --raw-output '.[] | .email'  | sort | uniq --all-repeated
+
+jane.smith@yahoo.com
+jane.smith@yahoo.com
+```
