@@ -37,7 +37,7 @@ OptionParser.new do |opts|
 end.parse!
 
 # read the data from a file or STDIN, ARGV would have been mutated to remove options with the parse! call above
-data = JSON.parse(ARGF.read)
+engine = Shiftcare::NaiveEngine.new(JSON.parse(ARGF.read))
 
 # convert the returned hash to JSON so you could potentially pipe/mutate the output with other commands
-puts Shiftcare::CommandRunner.new(data).run(options).to_json
+puts Shiftcare::CommandRunner.new(engine).run(options).to_json

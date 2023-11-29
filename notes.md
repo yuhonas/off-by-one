@@ -6,6 +6,13 @@
 - why are we building it - https://en.wikipedia.org/wiki/Not_invented_here
 
 
+# limitations
+- deal with multiple matches
+- case insensitive
+- return the first match
+- implement default keyword argument
+
+
 # design
 - composable
 - simple try and use stdlib when possible
@@ -85,7 +92,7 @@ jane.smith@yahoo.com
 ```
 
 ## limitations
-- only accepts JSON (could be adpated to other interchange formats)
+- only accepts JSON (could be adpated to other interchange formats), there is also JSON parsing logic scattered in a few places that could be DRY'ed up
 
 
 # links

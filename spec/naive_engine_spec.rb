@@ -1,21 +1,15 @@
 # rubocop:disable all
 RSpec.describe Shiftcare::NaiveEngine do
   let(:engine) { described_class.new(data) }
-  let(:data) do
-    [
-      { "full_name" => "John Smith",   "email" => "test@example.com" },
-      { "full_name" => "Robert Smith", "email" => "test@example.com" },
-      { "full_name" => "Jason Doe",    "email" => "doe@example.com" }
-    ]
-  end
+  let(:data) { JSON.load_file(File.expand_path("./fixtures/clients.json", __dir__)) }
 
   describe "#search" do
     it "returns the first matching record by full_name" do
-      expect(engine.search("john").fetch("full_name")).to eq("John Smith")
+      expect(engine.search("john").fetch("full_name")).to eq("John Doe")
     end
 
     it "returns an empty hash if given a full_name that doesnt exist" do
-      expect(engine.search("jane")).to eq({})
+      expect(engine.search("omniman")).to eq({})
     end
   end
 
@@ -23,8 +17,9 @@ RSpec.describe Shiftcare::NaiveEngine do
     subject { engine.duplicates }
 
     context "when there are duplicate emails" do
-      it { is_expected.to include( { "full_name" => "John Smith", "email" => "test@example.com" }) }
-      it { is_expected.to include( { "full_name" => "Robert Smith", "email" => "test@example.com" }) }
+      it { is_expected.to include( {"id"=>2, "full_name"=>"Jane Smith", "email"=>"jane.smith@yahoo.com"}) }
+      it { is_expected.to include( {"id"=>15, "full_name"=>"Another Jane Smith", "email"=>"jane.smith@yahoo.com"}  ) }
+
       it { expect(subject.size).to eq(2) }
     end
 

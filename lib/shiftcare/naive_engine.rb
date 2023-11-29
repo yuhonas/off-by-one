@@ -1,4 +1,3 @@
-# Parse options
 module Shiftcare
   class NaiveEngine
     attr_accessor :data
@@ -7,10 +6,7 @@ module Shiftcare
       self.data = data
     end
 
-    # deal with multiple matches
-    # case insensitive
-    # return the first match
-    # implement default keyword argument
+    # perform a simple case insenstive substring search for the first matching record
     def search(keyword)
       data.each do |record|
         return record if record["full_name"].downcase.include?(keyword.downcase)
@@ -19,9 +15,8 @@ module Shiftcare
       {}
     end
 
+    # find duplicated records by email
     def duplicates
-      # find duplicated records with the full_name key in the data array
-      # return an array of the duplicated records
       data.group_by { |record| record["email"] }.select { |_, v| v.size > 1 }.values.flatten
     end
   end

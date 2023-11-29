@@ -3,8 +3,8 @@
 module Shiftcare
   # command line options dispatcher
   class CommandRunner
-    def initialize(data)
-      @engine = Shiftcare::NaiveEngine.new(data)
+    def initialize(engine)
+      @engine = engine
     end
 
     def run(options)
