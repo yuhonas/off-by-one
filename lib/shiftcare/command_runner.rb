@@ -3,15 +3,16 @@
 module Shiftcare
   # command line options dispatcher
   class CommandRunner
-    def initialize(engine)
-      @engine = engine
+    def initialize(explorer)
+      @explorer = explorer
     end
 
+    # will noop if no options are passed
     def run(options)
       if options[:search]
-        @engine.search(options[:search])
+        @explorer.search(options[:search])
       elsif options[:duplicates]
-        @engine.duplicates
+        @explorer.duplicates
       end
     end
   end

@@ -11,11 +11,11 @@ data = JSON.parse(ARGF.read)
 
 puts "Welcome to the shiftcare JSON explorer"
 puts "#{data.size} records loaded."
-puts "A helper instance '@engine' is available for you to interactively explore this data"
+puts "A helper instance '@explorer' is available for you to interactively explore this data"
 
-# NOTE: We could do some funky method_missing stuff here to proxy methods to the engine
+# NOTE: We could do some funky method_missing stuff here to proxy methods to the explorer
 # to create local methods in the console but I think it's a bit overkill for this exercise
 # you get the idea :)
-@engine = Shiftcare::NaiveEngine.new(data)
+@explorer = Shiftcare::NaiveExplorer.new(data)
 
 IRB.start(__FILE__)

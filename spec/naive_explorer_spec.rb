@@ -1,20 +1,20 @@
 # rubocop:disable all
-RSpec.describe Shiftcare::NaiveEngine do
-  let(:engine) { described_class.new(data) }
+RSpec.describe Shiftcare::NaiveExplorer do
+  let(:explorer) { described_class.new(data) }
   let(:data) { JSON.load_file(File.expand_path("./fixtures/clients.json", __dir__)) }
 
   describe "#search" do
     it "returns the first matching record by full_name" do
-      expect(engine.search("john").fetch("full_name")).to eq("John Doe")
+      expect(explorer.search("john").fetch("full_name")).to eq("John Doe")
     end
 
     it "returns an empty hash if given a full_name that doesnt exist" do
-      expect(engine.search("omniman")).to eq({})
+      expect(explorer.search("omniman")).to eq({})
     end
   end
 
   describe "#duplicates" do
-    subject { engine.duplicates }
+    subject { explorer.duplicates }
 
     context "when there are duplicate emails" do
       it { is_expected.to include( {"id"=>2, "full_name"=>"Jane Smith", "email"=>"jane.smith@yahoo.com"}) }

@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module Shiftcare
-  class NaiveEngine
+  # a simple class to explore data based on the schema of the JSON in spec/fixtures/clients.json
+  # aptly named as the implementations are incredible naive/simple :)
+  # see design goals/limitations in README.doc for the rationale and tradeoffs
+  class NaiveExplorer
     attr_accessor :data
 
     def initialize(data)

@@ -6,7 +6,7 @@ require "shiftcare"
 require "optparse"
 require "json"
 
-PROGRAM_NAME_AND_VERSION = "#{File.basename($PROGRAM_NAME)} CLI v#{Shiftcare::VERSION}"
+PROGRAM_NAME_AND_VERSION = "#{File.basename($PROGRAM_NAME)} v#{Shiftcare::VERSION}"
 
 options = {}
 
@@ -37,7 +37,7 @@ OptionParser.new do |opts|
 end.parse!
 
 # read the data from a file or STDIN, ARGV would have been mutated to remove options with the parse! call above
-engine = Shiftcare::NaiveEngine.new(JSON.parse(ARGF.read))
+explorer = Shiftcare::NaiveExplorer.new(JSON.parse(ARGF.read))
 
 # convert the returned hash to JSON so you could potentially pipe/mutate the output with other commands
-puts Shiftcare::CommandRunner.new(engine).run(options).to_json
+puts Shiftcare::CommandRunner.new(explorer).run(options).to_json
