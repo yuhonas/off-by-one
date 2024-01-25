@@ -1,0 +1,38 @@
+[
+  {
+    "type": "rgb",
+    "red": 255,
+    "green": 100,
+    "blue": 40
+  },
+  {
+    "type": "rgb",
+    "red": 50,
+    "green": 100,
+    "blue": 200
+  },
+  {
+    "type": "rgb",
+    "red": 100,
+    "green": 200,
+    "blue": 180
+  },
+  {
+    "type": "rgb",
+    "red": 50,
+    "green": 70,
+    "blue": 200
+  },
+  {
+    "type": "rgb",
+    "red": 20,
+    "green": 20,
+    "blue": 20
+  },
+  {
+    "type": "hsl",
+    "hue": "360",
+    "saturation": "100",
+    "lightness": "100"
+  }
+]
