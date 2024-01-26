@@ -75,3 +75,19 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 
 
 * https://vuejs.org/style-guide/rules-strongly-recommended.html
+
+
+## limitations
+* not dealing with invalid colors, assuming they generated and valid
+* the HTML 5 Color input varies accross browsers, I'm aware of this but used it for fun
+* the HTML 5 color input only accepts HEX see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color#providing_a_default_color
+* i'm aware CSS supports other color spaces eg. HSL natively
+* saturation/lightness should be in percentated this now bubbles downstream into the client, they should correct
+* are the colors even valid?
+* use stdlib colorsys in python
+* no mobile responsive view
+
+
+## documentation
+* http://localhost:8000/docs
+* https://codepen.io/alemesa/pen/YNrBqr
