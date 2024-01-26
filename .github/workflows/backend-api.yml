@@ -1,11 +1,11 @@
 name: Backend API
 on: [push]
+defaults:
+  run:
+    working-directory: backend
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./backend
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python 3.11
@@ -17,7 +17,15 @@ jobs:
         run: |
           pip install pipenv
           pipenv install --dev
-      - name: Run linting
+      - name: Run Linting
         run: pipenv run black --check .
       - name: Run Test's
         run: pipenv run pytest
+      - name: Deploy backend via serverless
+        run: |
+          npx serverless plugin install -n serverless-python-requirements
+          npx serverless deploy --verbose
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}

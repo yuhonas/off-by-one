@@ -12,7 +12,7 @@ from mangum import Mangum
 COLOR_CLASSES = [ColorRGB, ColorHSL]  # Color Classes to choose from,
 COLORS_RESULT_SIZE = 5  # Number of colors to return, could also be a query param
 
-app = FastAPI()
+app = FastAPI(title="Color Swatch Generator API")
 
 # NOTE: This is way too permissive, in the real world we would want to restrict this
 app.add_middleware(CORSMiddleware, allow_origins=["*"], expose_headers=["*"])
@@ -33,7 +33,7 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], expose_headers=["*"])
 )
 def retrieve_a_list_of_random_colors():
     """
-    Retrieve a list of of {COLOR_RESULT_SIZE} randomly generated colors across random color spaces
+    Retrieve a list of of 5 randomly generated colors across random color spaces
     """
 
     # NOTE: obviously could be done in a oneliner with a map/lambda

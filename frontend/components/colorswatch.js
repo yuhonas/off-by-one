@@ -28,8 +28,8 @@ const factoryTypes = {
   hsl: hslConverter
 }
 
-// implement factory pattern
-// TODO: Implement error case for an invalid color type
+// implement factory pattern for color conversion based on color space type
+// FIXME: Implement type checking and throw error if type is not supported
 const createColorConverterFactory = (color) => {
   return factoryTypes[color.type](color)
 }

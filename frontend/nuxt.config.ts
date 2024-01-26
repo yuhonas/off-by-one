@@ -12,6 +12,9 @@ export default defineNuxtConfig({
       // Can be overriden with
       // NUXT_PUBLIC_API_URL=http://www.example.com
       apiUrl: 'http://localhost:8000'
+    },
+    app: {
+      baseURL: '/'
     }
   }
 })
