@@ -1,5 +1,4 @@
-# Kanopi Color Swatch [![Backend API](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml/badge.svg)][![Frontend](https://github.com/yuhonas/kanopi/actions/workflows/frontend.yml/badge.svg)](https://github.com/yuhonas/kanopi/actions/workflows/frontend.yml)| (https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml)
-
+# Kanopi Color Swatch [![Frontend](https://github.com/yuhonas/kanopi/actions/workflows/frontend.yml/badge.svg)](https://github.com/yuhonas/kanopi/actions/workflows/frontend.yml) [![Backend API](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml/badge.svg)](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml) 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
 ## Setup
