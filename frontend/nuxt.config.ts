@@ -7,11 +7,13 @@ export default defineNuxtConfig({
     emitWarning: true
   },
   runtimeConfig: {
-    // Will be available in both server and client
+    // public variables will be available in both server and client
     public: {
-      // Can be overriden with
+      // Where to source our JSON based color swatch from
+      // should be a URL or set to a local file for testing without a server
+      // to set use the NUXT_PUBLIC_API_URL environment variable eg.
       // NUXT_PUBLIC_API_URL=http://www.example.com
-      apiUrl: 'http://localhost:8000'
+      apiUrl: '/sample.json'
     },
     app: {
       baseURL: '/'

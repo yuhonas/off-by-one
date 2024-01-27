@@ -12,10 +12,10 @@
     "blue": 200
   },
   {
-    "type": "rgb",
-    "red": 100,
-    "green": 200,
-    "blue": 180
+    "type": "hsl",
+    "hue": "300",
+    "saturation": "40",
+    "lightness": "80"
   },
   {
     "type": "rgb",
