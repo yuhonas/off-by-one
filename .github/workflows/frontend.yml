@@ -50,7 +50,7 @@ jobs:
           # Set the backend API URL as an environment variable
           # this should be dynamic based on the output of the backend job
           NUXT_PUBLIC_API_URL: ${{ vars.NUXT_PUBLIC_API_URL }}
-          NUXT_APP_BASE_URL: '/kanopi'
+          NUXT_APP_BASE_URL: "/${{ github.event.repository.name }}"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

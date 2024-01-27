@@ -14,13 +14,9 @@ jobs:
           python-version: 3.11
           cache: 'pipenv'
       - name: Install dependencies
-        run: |
-          pip install pipenv
-          pipenv install --dev
-      - name: Run Linting
-        run: pipenv run black --check .
-      - name: Run Test's
-        run: pipenv run pytest
+        run: make deps
+      - name: Run linting & tests
+        run: make test
       - name: Deploy backend via serverless
         run: |
           npx serverless plugin install -n serverless-python-requirements
@@ -28,4 +24,3 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}

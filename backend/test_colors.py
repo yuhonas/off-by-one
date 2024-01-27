@@ -1,6 +1,7 @@
 import random
+
+from colors import ColorHSL, ColorRGB
 from main import app
-from colors import ColorRGB, ColorHSL
 
 
 def test_color_rgb_random():
