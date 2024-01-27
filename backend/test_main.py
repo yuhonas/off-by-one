@@ -4,6 +4,7 @@ from fastapi.testclient import TestClient
 client = TestClient(main.app)
 
 
+# NOTE: Basic sanity check test's could obviously explore many more cases
 def test_read_root():
     response = client.get("/")
     assert response.status_code == 200
