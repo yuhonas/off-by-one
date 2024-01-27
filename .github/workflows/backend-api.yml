@@ -21,11 +21,7 @@ jobs:
         run: |
           npx serverless plugin install -n serverless-python-requirements
           npx serverless deploy --verbose
-          npx serverless info | grep -o -E 'https?://[^ ]+' >> $GITHUB_STEP_SUMMARY
-          echo "```bash" >> $GITHUB_STEP_SUMMARY
-          echo "npx serverless info"
           npx serverless info >> $GITHUB_STEP_SUMMARY
-          echo "```" >> $GITHUB_STEP_SUMMARY
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
