@@ -1,4 +1,4 @@
-# Kanopi - Color Swatch
+# Kanopi - Color Swatch  [![Frontend](https://github.com/yuhonas/kanopi/actions/workflows/frontend.yml/badge.svg)](https://github.com/yuhonas/kanopi/actions/workflows/frontend.yml) [![Backend API](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml/badge.svg)](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml) 
 
 ## Background
 
