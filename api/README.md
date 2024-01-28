@@ -1,4 +1,4 @@
-# Kanopi Color Switch API | [![Backend API](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml/badge.svg)](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml)
+# Kanopi Color Swatch API [![Backend API](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml/badge.svg)](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml)
 
 
 A simple API to return a random set of colors accross a randomized set of color spaces with extensability beyond [standard color spaces](https://en.wikipedia.org/wiki/List_of_color_spaces_and_their_uses) in mind
@@ -10,7 +10,7 @@ A simple API to return a random set of colors accross a randomized set of color 
 
 ### Installation
 
-You can checkout the repo using
+You can checkout the repo & `api` sub directory using api
 
 ```
 git clone git@github.com:yuhonas/kanopi.git && cd api
@@ -36,7 +36,7 @@ As this API is based on open standards using [FastAPI](https://fastapi.tiangolo.
 * Simplicity
 * Readability
 * Optimize for discussion, i've left notes where i've thought a snap judgement/unintentional hiring bias could be made
-* A little bit of over-engineering for fun to explore what can/should/shouldn't be done
+* A bit of over-engineering for fun to explore what can/should/shouldn't be done
 
 ## Assumptions
 
@@ -73,17 +73,17 @@ This has been designed with adding non conventional color spaces in mind eg. `BR
 ```python
 class ColorBRGB(Color):
     type: str = "brgb"
-    red: int = Field(..., ge=0, le=1000)
-    green: int = Field(..., ge=0, le=1000)
-    blue: int = Field(..., ge=0, le=1000)
+    red: int = Field(..., ge=0, le=10000)
+    green: int = Field(..., ge=0, le=10000)
+    blue: int = Field(..., ge=0, le=10000)
 
     @classmethod
     def random(cls):
         return cls(
             # NOTE: You could DRY this up, as all values are randomized 0-1000
-            red=random.randint(0, 1000),
-            green=random.randint(0, 1000),
-            blue=random.randint(0, 1000),
+            red=random.randint(0, 10000),
+            green=random.randint(0, 10000),
+            blue=random.randint(0, 10000),
         )
 ```
 

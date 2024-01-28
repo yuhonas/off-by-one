@@ -17,17 +17,18 @@ const rgbConverter = ({ red, green, blue }) => {
 const hslConverter = ({ hue, saturation, lightness }) => {
   // NOTE: This assumes saturation and lightness are integers when in fact they should be %
   // You could normalize them with something like parseInt(<value>) + '%' defensively but i'd
-  // rather address the problem up stream
+  // rather address the issue up stream
   const parsedColor = D3Color(`hsl(${hue},${saturation}%,${lightness}%)`)
 
-  // TODO: create proxy around parsedColor so we can return a hex value
   return {
     name: parsedColor.formatHsl(),
     hex: parsedColor.hex()
   }
 }
 
-// simple factory pattern for instantiating color converters based on "type"
+// Simple factory pattern for instantiating color converters based on "type"
+// NOTE: as these are really only thin wrappers around D3Color objects and we may want to utilize
+// some of the other methods offered from D3color we could potentially return a `Proxy`
 const createColorConverterFactory = ({ type, ...colors }) => {
   switch (type) {
     case 'rgb':

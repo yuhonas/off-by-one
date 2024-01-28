@@ -17,7 +17,11 @@
       class="w-full hover:cursor-pointer pt-5"
       :style="{ backgroundColor: color.hex }"
     >
-      <abbr :title="color.name">{{ color.hex }}</abbr>
+      <!--
+        NOTE: For a better UX we could implement a dynamic contrasting color here for
+        the inner text so it doesn't get washed out by the background color.
+      -->
+      <abbr :title="color.hex">{{ color.name }}</abbr>
     </div>
   </div>
   <button
@@ -37,11 +41,11 @@ const runtimeConfig = useRuntimeConfig()
 const colors = ref([])
 const loading = ref(true)
 
-// NOTE: We could implement a debounce here to prevent multiple requests from queing up
+// NOTE: We could implement a debounce here to prevent multiple requests from queuing up
 const fetchColors = async () => {
   loading.value = true
-  // TODO: Cater for errors
 
+  // TODO: Cater for errors
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data, error } = await useFetch(runtimeConfig.public.apiUrl, {
     transform: (records: any) => {
