@@ -13,7 +13,7 @@ provider:
     app: serverless-fastapi
 functions:
   api:
-    handler: main.handler
+    handler: app/main.handler
     events:
       - httpApi: '*'
 

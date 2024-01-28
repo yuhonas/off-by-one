@@ -1,7 +1,6 @@
 import random
 
-from colors import ColorHSL, ColorRGB
-from main import app
+from app.colors import ColorHSL, ColorRGB
 
 # NOTE: Very basic test's could obviously increase the coverage considerably but
 # just wanted to get some boilerplate down

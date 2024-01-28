@@ -2,7 +2,7 @@ name: Backend API
 on: [push]
 defaults:
   run:
-    working-directory: backend
+    working-directory: api
 jobs:
   build:
     runs-on: ubuntu-latest

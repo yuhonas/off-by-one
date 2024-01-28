@@ -1,4 +1,4 @@
-# Kanopi - Color Swatch  [![Frontend](https://github.com/yuhonas/kanopi/actions/workflows/frontend.yml/badge.svg)](https://github.com/yuhonas/kanopi/actions/workflows/frontend.yml) [![Backend API](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml/badge.svg)](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml) 
+# Kanopi - Color Swatch  [![Frontend](https://github.com/yuhonas/kanopi/actions/workflows/frontend.yml/badge.svg)](https://github.com/yuhonas/kanopi/actions/workflows/frontend.yml) [![Backend API](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml/badge.svg)](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml)
 
 ## Background
 
@@ -74,7 +74,6 @@ In any case if we are going to build it
     "saturation": "100",
     "lightness": "100"
   },
-  // Three more colors in random combinations of RGB and HSL_
 ]
 ```
 
@@ -136,28 +135,22 @@ My solution here would be to use something as out of the box as possible, color 
 ### My closing questions
 * I dont know [Color Theory](https://en.wikipedia.org/wiki/Color_theory)
 * Does color theory/rgb/hsl represent real world problems in the org? or just something to explore that _may_ be out of peoples comfort zone
-- If it's a color swatch "component" should it be part of a wider component library within the org eg [storybook](https://storybook.js.org/)
-* There's an overwhelming fixation with "extending", what's driven this, what's happened in the org, any horror stories to share?
-* API design standards, don't re-invent the rule, eg. json api/open api/restful/graphql or at least standization within the org (but needs to be for good reason) then we could implement against a schema/documentation
+* If it's a color swatch "component" should it be part of a wider component library within the org eg [storybook](https://storybook.js.org/)
+* I've noticed a resouding theme of "extending" which is good a paradigm but what's driven this, any horror stories to share?
+* API design standards, are we re-inventing the rule, eg. json api/open api/restful/graphql or at least standization within the org (but needs to be for good reason) then we could implement against a schema/documentation with plenty of available tooling
 * How is this test evaluated, rubrick?, how do you navigate hiring/engineer biases?
 * I'm answering this as a head of engineering, a lead/staff engineer would be weighted on technical acumen, i'm not doing that, being brutally practical/strategic
-* What's the total cost per hire for this to bubble down into recruitment
 * What would be the use in making this a client/server application at this point, everything could be done on the frontend unless you need authentication/persistance/etc why complicate it
-* Infrastructure I would favour an entirely frontend app for multiple reasons, we don't need django at this stage, it offers nothing
-* Going to make assumptions to speed up evaluation process for you and I but you'll know exactly why I made them and I feel that's more critical then some end goal
+* I've made plenty of assumptions to speed up evaluation process for you and I but you'll know exactly why I made them and I feel that's more critical then some end goal
 * Wire frames & User Stories would help greatly
-* Without context of the what/why of the problem there is no move to solve for outcomes
+* Without context of the what/why of the problem there is limited room to move to solve for outcomes
 
 ## Design goals
 * Django for an API at this stage seems over-engineered, model/template/form/admin/emails
 * Something simple, popular, standards based
 * High signal to noise to optimize for reviewability
 
-* [django rest framework](https://www.django-rest-framework.org/)
-* [django ninja](https://django-ninja.dev/)
 * input [color element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color)
-* https://github.com/bgrins/TinyColor
-* https://github.com/One-com/one-color
 
 
 ## Assumptions

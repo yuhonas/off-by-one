@@ -41,6 +41,7 @@ const loading = ref(true)
 const fetchColors = async () => {
   loading.value = true
   // TODO: Cater for errors
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data, error } = await useFetch(runtimeConfig.public.apiUrl, {
     transform: (records: any) => {

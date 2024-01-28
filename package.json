@@ -14,7 +14,7 @@
   "devDependencies": {
     "@nuxt/eslint-config": "^0.2.0",
     "@nuxtjs/eslint-module": "^4.1.0",
-    "@nuxtjs/tailwindcss": "^6.11.0",
+    "@nuxtjs/tailwindcss": "^6.11.1",
     "d3-color": "^3.1.0",
     "eslint": "^8.56.0",
     "eslint-config-standard": "^17.1.0",

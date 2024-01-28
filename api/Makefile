@@ -5,7 +5,7 @@ deps:
 	pipenv install --dev
 
 dev:
-	pipenv run python main.py
+	pipenv run python -m app
 
 lint:
 	pipenv run black --check .
@@ -14,4 +14,4 @@ fix:
 	pipenv run black .
 
 test: lint
-	pipenv run pytest
+	pipenv run python -m pytest

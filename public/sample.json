@@ -31,8 +31,8 @@
   },
   {
     "type": "hsl",
-    "hue": "360",
-    "saturation": "100",
-    "lightness": "100"
+    "hue": "250",
+    "saturation": "50",
+    "lightness": "90"
   }
 ]

@@ -1,7 +1,7 @@
 import random
 from typing import List, Union
 
-from colors import ColorHSL, ColorRGB
+from .colors import ColorHSL, ColorRGB
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from mangum import Mangum
@@ -9,7 +9,10 @@ from mangum import Mangum
 # List of color classes to generate the random colors from
 # we could do some dunder method magic to get this list
 # eg. enumerate `Color.__subclasses__()` but i'd prefer to favour explicitness (the pythonic way)
-COLOR_CLASSES = [ColorRGB, ColorHSL]  # Color Classes to choose from,
+COLOR_CLASSES = [
+    ColorRGB,
+    ColorHSL,
+]  # Color Classes to choose from during the random color generation
 COLORS_RESULT_SIZE = 5  # Number of colors to return, could also be a query param
 
 app = FastAPI(title="Color Swatch Generator API")
@@ -47,13 +50,5 @@ def retrieve_a_list_of_random_colors():
 
 
 # NOTE: this is required for AWS Lambda
-# see [serverless.yml](./serverless.yml)
-# see https://mangum.io/
+# See ./serverless.yml && https://mangum.io/
 handler = Mangum(app)
-
-
-# NOTE: Convenience method for direct script execution in local development
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run(app)
