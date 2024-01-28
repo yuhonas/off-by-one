@@ -1,8 +1,8 @@
 # Kanopi - Color Swatch  [![Build & Deploy static site](https://github.com/yuhonas/kanopi/actions/workflows/frontend-site.yml/badge.svg)](https://github.com/yuhonas/kanopi/actions/workflows/frontend-site.yml) [![Build & Deploy Backend API](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml/badge.svg)](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml)
 
-A basic color swatch "renderer" built using [Vue.js](https://vuejs.org/) & [Nuxt](https://nuxt.com/), essentially the VueJS equivilient of [Next.JS](https://nextjs.org/)
+A basic mobile responsive color swatch "renderer" built using [Vue.js](https://vuejs.org/) & [Nuxt](https://nuxt.com/) (the VueJS equivalent of [Next.JS](https://nextjs.org/))
 
-![example color swatch](./example.jpg)
+[![example color swatch](./example.jpg)](https://yuhonas.github.io/kanopi/)
 
 See [BACKGROUND.md](./BACKGROUND.md) on the test brief and my running thoughts about it, i've gone above and beyond because of the nature of the role (Head of Engineering)
 
@@ -129,6 +129,7 @@ consider making it part of a wider "component" library via something like [Story
 * If we still want to keep the backend color models and transformational logic on the frontend add some integration test's to ensure they both "work together" so that test's would break if somebody doesn't extend it on both the backend/frontend
 * Simplify the client side logic by the introduction of a web safe color in the backend `JSON` for each generated color in each color space eg. `rgbColor: #EFEFEF`, then the client would be drastically thinner & simply render out the swatch and web safe color representation
 * Generate the frontend client based on our [openapi schema](https://j8adom76wl.execute-api.ap-southeast-2.amazonaws.com/openapi.json) with something like  [openapi-typescript](https://www.npmjs.com/package/openapi-typescript) then we would have a single source of truth/type safety etc
+* If you want to package this up and make this a more portable implementation with frontend/backend baked in you could dockerize it
 
 
 #### Alternative solutions

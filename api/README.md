@@ -31,6 +31,10 @@ As this API is based on open standards using [FastAPI](https://fastapi.tiangolo.
 * Automagically generated interactive [Swagger UI](https://j8adom76wl.execute-api.ap-southeast-2.amazonaws.com/docs) for you to explore the endpoints
 * An [Open API Schema](https://j8adom76wl.execute-api.ap-southeast-2.amazonaws.com/openapi.json) compatible with [JSON Schema](https://json-schema.org/), which you could potentially build implementations/clients/types against
 
+### What does it look like?
+
+[![example swagger ui](./swagger-ui.jpg)](https://j8adom76wl.execute-api.ap-southeast-2.amazonaws.com/docs)
+
 ## Design Goals
 
 * Simplicity
