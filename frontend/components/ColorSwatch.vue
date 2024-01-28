@@ -1,11 +1,11 @@
 <template>
-  <div class="flex h-16 text-center text-xs text-white">
+  <div class="flex gap-0.5 h-16 text-center text-xs text-white">
     <!--
-      NOTE: Poor mans loading indicator, this coule be done a lot more
-      elegantly with event/life cycle hooks etc.
+      NOTE: Only shown during the initial load before
+      the colors have been fetched.
     -->
     <p
-      v-if="colors.length === 0"
+      v-if="loading && colors.length == 0"
       class="w-full py-4 text-xl text-center text-slate-800"
     >
       Loading...
@@ -20,13 +20,9 @@
       <abbr :title="color.name">{{ color.hex }}</abbr>
     </div>
   </div>
-  <!--
-      NOTE: This is a very basic refresh button, it could be improved with
-      a disabled/loading state and error handling, it should also debounce
-      to prevent enqueueing multiple requests here and/or at the network layer.
-    -->
   <button
-    class="bg-gray-500 hover:bg-gray-700 text-white font-bold my-2 py-2 px-8 rounded block mx-auto"
+    class="bg-gray-500 hover:bg-gray-700 text-white my-2 py-2 px-8 rounded block mx-auto"
+    :disabled="loading"
     @click="fetchColors"
   >
     Refresh
@@ -39,11 +35,14 @@ import { createColorConverterFactory } from './colorswatch'
 const runtimeConfig = useRuntimeConfig()
 
 const colors = ref([])
+const loading = ref(true)
 
+// NOTE: We could implement a debounce here to prevent multiple requests from queing up
 const fetchColors = async () => {
-  // TODO: Cater for loading states & errors
+  loading.value = true
+  // TODO: Cater for errors
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { data, error, pending } = await useFetch(runtimeConfig.public.apiUrl, {
+  const { data, error } = await useFetch(runtimeConfig.public.apiUrl, {
     transform: (records: any) => {
       return records.map((record: any) => {
         return createColorConverterFactory(record)
@@ -51,6 +50,7 @@ const fetchColors = async () => {
     }
   })
   colors.value = data.value
+  loading.value = false
 }
 
 onMounted(fetchColors)

@@ -1,12 +1,15 @@
-// simple javascript based color parser/converter
-// see https://github.com/One-com/one-color
-import OneColor from 'onecolor'
+/*
+ * Simple library of functions from converting colors from a "type" to a web safe color
+ * @see {@link https://d3js.org/d3-color}
+ */
+
+import { color as D3Color } from 'd3-color'
 
 const rgbConverter = ({ red, green, blue }) => {
-  const parsedColor = OneColor(`rgb(${red},${green},${blue})`)
+  const parsedColor = D3Color(`rgb(${red},${green},${blue})`)
 
   return {
-    name: parsedColor.toJSON(),
+    name: parsedColor.formatRgb(),
     hex: parsedColor.hex()
   }
 }
@@ -15,23 +18,31 @@ const hslConverter = ({ hue, saturation, lightness }) => {
   // NOTE: This assumes saturation and lightness are integers when in fact they should be %
   // You could normalize them with something like parseInt(<value>) + '%' defensively but i'd
   // rather address the problem up stream
-  const parsedColor = OneColor(`hsl(${hue},${saturation}%,${lightness}%)`)
+  const parsedColor = D3Color(`hsl(${hue},${saturation}%,${lightness}%)`)
 
+  // TODO: create proxy around parsedColor so we can return a hex value
   return {
-    name: parsedColor.toJSON(),
+    name: parsedColor.formatHsl(),
     hex: parsedColor.hex()
   }
 }
 
-const factoryTypes = {
-  rgb: rgbConverter,
-  hsl: hslConverter
-}
-
-// implement factory pattern for color conversion based on color space type
-// FIXME: Implement type checking and throw error if type is not supported
-const createColorConverterFactory = (color) => {
-  return factoryTypes[color.type](color)
+// simple factory pattern for instantiating color converters based on "type"
+const createColorConverterFactory = ({ type, ...colors }) => {
+  switch (type) {
+    case 'rgb':
+      return rgbConverter(colors)
+    case 'hsl':
+      return hslConverter(colors)
+    default:
+      // NOTE:
+      // if we had type safety/agreed schema between the frontend and backend we wouldn't
+      // need to deal with this, but for now we'll just throw an error
+      // i'd prefer to "make impossible states impossible"
+      // something i picked up from elm
+      // https://sporto.github.io/elm-patterns/basic/impossible-states.html
+      throw new Error(`Unsupported color type: ${type}`)
+  }
 }
 
 export { createColorConverterFactory }

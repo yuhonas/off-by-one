@@ -188,3 +188,6 @@ TBD
 - https://www.github.com/adobe/leonardo
 - https://vue-styleguidist.github.io/docs/Documenting.html#code-comments
 
+* https://github.com/adobe/leonardo?tab=readme-ov-file
+* https://github.com/d3/d3-color?tab=readme-ov-file
+* https://www.npmjs.com/package/@uiw/react-color-swatch
