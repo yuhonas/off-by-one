@@ -16,13 +16,13 @@ First of all, i've been using Vue.js recently for personal projects so it was qu
 * [react-color-swatch](https://www.npmjs.com/package/@uiw/react-color-swatch)
 * [react color](https://casesandberg.github.io/react-color/)
 
-I also looked into Adobe's [leonardo](https://github.com/adobe/leonardo) but then time boxed it & made a call to optimize for discussion rather then the perfect implementation & tooling
+I also looked into Adobe's [leonardo](https://github.com/adobe/leonardo) but then time boxed it & made a call to not get too fixated on the underlying language/tooling and more on the output/outcome
 
 ## Getting Started
 
 ### Dependencies
 * Node 20.x
-* NPM 10.x
+* npm 10.x
 
 ### Installation
 
@@ -120,7 +120,7 @@ I'm not a big of this overall implementation, _many assumptions_ have been made 
 
 * The backend offer's nothing that couldn't be done on the frontend (in it's present state)
 * Making the assumption we need to cater for "non standard" color spaces and they need to be rendered in a web safe manner introduces a lot of complexity on the frontend essentially doubling the abstraction layer/transformation logic, eg. extending it requires making changes in "two places" and there is no single source of truth
-* No
+* No assurances the implementations & wiring between the frontend/backend work
 
 ### Better Solutions
 

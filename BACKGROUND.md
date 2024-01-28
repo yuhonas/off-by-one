@@ -1,6 +1,6 @@
 ## Background
 
-My answering objective with the following challenge is to wear many hats beyond just writing code as I feel the role would dictate, so strap yourself in for some verbosity 😀
+My objective with reviewing the following challenge is to wear many hats, so i've looked at it from a product, engineering, architecture, operations and org wide strategy point of view, so strap yourself in for some verbosity 😀
 
 > The intent of this challenge is to explore general system design,
 > along with approaches to code extensibility. While a simple challenge,
@@ -129,3 +129,4 @@ My solution here would be to use something as out of the box as possible, color 
 > * Ideally you can develop the solution with Django and React, but feel free to use any other technologies you're more comfortable with.
 > * Please don't spend more than 3-4 hours on it. If you can't get to do everything, please write down how you would approach adding any missing functionality.
 
+* Is Django/React the exclusive stack you use? how are those technical decisions made?
