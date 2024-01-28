@@ -1,7 +1,7 @@
 # Kanopi Color Swatch API [![Backend API](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml/badge.svg)](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml)
 
 
-A simple API to return a random set of colors accross a randomized set of color spaces with extensability beyond [standard color spaces](https://en.wikipedia.org/wiki/List_of_color_spaces_and_their_uses) in mind
+A simple API to return a random set of colors across a randomized set of color spaces with extensability beyond [standard color spaces](https://en.wikipedia.org/wiki/List_of_color_spaces_and_their_uses) in mind
 
 ## Getting Started
 
@@ -35,8 +35,10 @@ As this API is based on open standards using [FastAPI](https://fastapi.tiangolo.
 
 * Simplicity
 * Readability
-* Optimize for discussion, i've left notes where i've thought a snap judgement/unintentional hiring bias could be made
+* Something _standards_ based as much as possible, don't re-invent the wheel
 * A bit of over-engineering for fun to explore what can/should/shouldn't be done
+* High signal to noise to optimize for reviewability
+* Optimize for discussion, i've left notes where i've thought a snap judgement/unintentional hiring bias could be made
 
 ## Assumptions
 
