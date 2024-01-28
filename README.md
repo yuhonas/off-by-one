@@ -4,6 +4,8 @@ A basic color swatch "renderer" built using [Vue.js](https://vuejs.org/) & [Nuxt
 
 ![example color swatch](./example.jpg)
 
+See [BACKGROUND.md](./BACKGROUND.md) on the test brief and my running thoughts about it, i've gone above and beyond because of the nature of the role (Head of Engineering)
+
 ## Project Organization
 
 The project is divided into two components, this project and the backend [API](./api) which is the data provider for this component
@@ -11,7 +13,6 @@ The project is divided into two components, this project and the backend [API](.
 ## Design Rationale
 
 First of all, i've been using Vue.js recently for personal projects so it was quicker for me to build something in that then React though I did do some brief research into some of the available frameworks/components in the React ecosystem like
-* []
 * [react-color-swatch](https://www.npmjs.com/package/@uiw/react-color-swatch)
 * [react color](https://casesandberg.github.io/react-color/)
 
