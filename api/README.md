@@ -1,4 +1,5 @@
-# Kanopi Color Switch API
+# Kanopi Color Switch API | [![Backend API](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml/badge.svg)](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml)
+
 
 A simple API to return a random set of colors accross a randomized set of color spaces with extensability beyond [standard color spaces](https://en.wikipedia.org/wiki/List_of_color_spaces_and_their_uses) in mind
 
@@ -27,7 +28,7 @@ See the [Makefile](./Makefile) for other useful tasks
 
 As this API is based on open standards using [FastAPI](https://fastapi.tiangolo.com/) the following is avilable out of the box
 
-* [Swagger UI](https://j8adom76wl.execute-api.ap-southeast-2.amazonaws.com/docs) for you to explore the endpoints
+* Automagically generated interactive [Swagger UI](https://j8adom76wl.execute-api.ap-southeast-2.amazonaws.com/docs) for you to explore the endpoints
 * An [Open API Schema](https://j8adom76wl.execute-api.ap-southeast-2.amazonaws.com/openapi.json) compatible with [JSON Schema](https://json-schema.org/), which you could potentially build implementations/clients/types against
 
 ## Design Goals

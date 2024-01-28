@@ -1,4 +1,4 @@
-# Kanopi - Color Swatch  [![Frontend](https://github.com/yuhonas/kanopi/actions/workflows/frontend.yml/badge.svg)](https://github.com/yuhonas/kanopi/actions/workflows/frontend.yml) [![Backend API](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml/badge.svg)](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml)
+# Kanopi - Color Swatch  [![Build & Deploy static site](https://github.com/yuhonas/kanopi/actions/workflows/frontend-site.yml/badge.svg)](https://github.com/yuhonas/kanopi/actions/workflows/frontend-site.yml) [![Build & Deploy Backend API](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml/badge.svg)](https://github.com/yuhonas/kanopi/actions/workflows/backend-api.yml)
 
 ## Background
 
@@ -53,7 +53,6 @@ In any case if we are going to build it
 * Do we have internal qualification/standards upon when/if something becomes a service and what the implementation will conform too
 * Do we have an org that producing a service is a low "cost" endevour, is this the first "sharable" service within the company
 * What is "easily" used? I'll make the assumption that it could be "documented" all the way to being discoverable in a Microservice Service Registry
-* SOA/Service Template do we have them? is this the kind of org we want to be? why?
 * Is this problem representative of one in Kanopi? I needed to look up [color spaces](https://en.wikipedia.org/wiki/Color_space) I had nfi 😆
 
 > The back-end should provide an API capable of returning to the front-end a set of five different colors for each call.
@@ -81,12 +80,12 @@ In any case if we are going to build it
 > The user should be able to regenerate the swatches by clicking a button.
 
 ### My questions
+* What does 'rendering' a swatch look like, wireframes/figma mockups etc?
 * What API standard does this conform too eg. [JSON API](https://jsonapi.org/) or [REST](https://en.wikipedia.org/wiki/REST) are we not adopting a standard here? why wouldn't we?
 * Why five different colours? is this a hard limit?
 * Why mixing colour spaces? why not normalize the output?
 * Is there something here that can _only_ be done on the backend hence necessitating the need for a backend, doubling the implementation & TCO, I would strive for an entirely front end solution if possible
 * Why random? and how "random" does it need to be?, subsequent calls could by chance generate a previous combination, is this a problem?
-* Is it order sensitive?
 * Would clients be consuming by color space?, If consuming from a "color space" perspective it'd be far more performant to group it by color space for consumers eg.
 ```json
 {

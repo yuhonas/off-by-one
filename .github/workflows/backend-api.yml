@@ -1,4 +1,4 @@
-name: Backend API
+name: Build & Deploy Backend API
 on: [push]
 defaults:
   run:
