@@ -116,7 +116,7 @@ const createColorConverterFactory = ({ type, ...colors }) => {
 
 
 ## My closing thoughts 🤔
-I'm not a big of this overall implementation, _many assumptions_ have been made that wouldn't be in the world real, the implementation is on the way but I feel there'd be far more simpler, elegant solution, heres what I dont like, why and what i'd improve
+I'm not a big of this overall implementation, _many assumptions_ have been made that wouldn't be in the real world, the implementation is on the way but I feel there'd be far more simpler, elegant solution, heres what I dont like, why and what i'd improve
 
 * The backend offer's nothing that couldn't be done on the frontend (in it's present state)
 * Making the assumption we need to cater for "non standard" color spaces and they need to be rendered in a web safe manner introduces a lot of complexity on the frontend essentially doubling the abstraction layer/transformation logic, eg. extending it requires making changes in "two places" and there is no single source of truth

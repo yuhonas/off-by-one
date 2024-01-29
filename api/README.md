@@ -10,7 +10,7 @@ A simple API to return a random set of colors across a randomized set of color s
 
 ### Installation
 
-You can checkout the repo & `api` sub directory using api
+You can checkout the repo & `api` sub directory using
 
 ```
 git clone git@github.com:yuhonas/kanopi.git && cd api

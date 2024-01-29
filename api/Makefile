@@ -1,7 +1,7 @@
 .PHONY: deps devlint fix test
 
 deps:
-	pip install pipenv
+	pip install pipenv --upgrade
 	pipenv install --dev
 
 dev:
