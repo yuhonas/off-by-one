@@ -26,7 +26,7 @@ See the [Makefile](./Makefile) for other useful tasks
 
 ## Documentation
 
-As this API is based on open standards using [FastAPI](https://fastapi.tiangolo.com/) the following is avilable out of the box
+As this API is based on open standards using [FastAPI](https://fastapi.tiangolo.com/) the following is available out of the box
 
 * Automagically generated interactive [Swagger UI](https://j8adom76wl.execute-api.ap-southeast-2.amazonaws.com/docs) for you to explore the endpoints
 * An [Open API Schema](https://j8adom76wl.execute-api.ap-southeast-2.amazonaws.com/openapi.json) compatible with [JSON Schema](https://json-schema.org/), which you could potentially build implementations/clients/types against
