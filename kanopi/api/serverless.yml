@@ -1,0 +1,30 @@
+# serverless config
+# see https://www.serverless.com/
+service: serverless-fastapi
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  region: ap-southeast-2
+  runtime: python3.11
+  tags:
+    app: serverless-fastapi
+  stackTags:
+    app: serverless-fastapi
+functions:
+  api:
+    handler: app/main.handler
+    events:
+      - httpApi: '*'
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!.vscode/**'
