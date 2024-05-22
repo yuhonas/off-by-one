@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "shiftcare"
+require "irb"
+require "json"
+
+# read the data from a file or STDIN
+data = JSON.parse(ARGF.read)
+
+puts <<~MESSAGE
+  Welcome to the shiftcare JSON explorer
+  #{data.size} records loaded
+  A helper instance '@explorer' is available for you to interactively explore the records loaded
+  eg. @explorer.search 'john'
+MESSAGE
+
+# NOTE: We could do some funky method_missing stuff here to proxy methods to the explorer
+# to create local methods in the console but I think it's a bit overkill for this exercise
+# you get the idea :)
+@explorer = Shiftcare::DataExplorer.new(data)
+
+IRB.start(__FILE__)

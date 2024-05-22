@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "shiftcare"
+require "optparse"
+require "json"
+
+PROGRAM_NAME_AND_VERSION = "#{File.basename($PROGRAM_NAME)} v#{Shiftcare::VERSION}"
+
+options = {}
+
+# NOTE: You could pull the option parsing into another class eg Shiftcare::CommandParser.new(ARGV) which
+# would make it testable but i've just kept this inplace/simple for now, the priority is having tests
+# for the commandline option dispatching
+OptionParser.new do |opts|
+  opts.banner = "#{PROGRAM_NAME_AND_VERSION} [filename|STDIN] [options]"
+  opts.separator "OPTIONS:"
+
+  opts.on("-s", "--search KEYWORD", "Search for KEYWORD within the dataset") do |keyword|
+    options[:search] = keyword
+  end
+
+  opts.on("-d", "--duplicates", "List all duplicates within the dataset") do |_|
+    options[:duplicates] = true
+  end
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+
+  opts.on_tail("-v", "--version", "Show the current version") do
+    puts PROGRAM_NAME_AND_VERSION
+    exit
+  end
+end.parse!
+
+# read the data from a file or STDIN, ARGV would have been mutated to remove options with the parse! call above
+explorer = Shiftcare::DataExplorer.new(JSON.parse(ARGF.read))
+
+# convert the returned hash to JSON so you could potentially pipe/mutate the output with other commands
+puts Shiftcare::CommandRunner.new(explorer).run(options).to_json
