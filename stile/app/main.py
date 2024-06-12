@@ -1,5 +1,6 @@
-from fastapi import FastAPI
-from .tasks import add
+from fastapi import FastAPI, Request
+from .tasks import add, aggregate_from_xml
+
 app = FastAPI()
 
 
@@ -7,6 +8,15 @@ app = FastAPI()
 async def root():
     add.delay(4, 4)
     return {"message": "Task Queued"}
+
+
+# Use a 202 status code to indicate that the request has been accepted for processing
+@app.post("/results", status_code=202)
+async def submit(request: Request) -> dict:
+    xml_data = await request.body()
+
+    aggregate_from_xml(xml_data)
+    return {"status": "ok"}
 
 
 @app.get("/health")

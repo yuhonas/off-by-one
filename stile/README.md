@@ -136,9 +136,11 @@ TBD
 
 
 
-##
+## Links
 
 - Hosted solution
 - Roll our own (lots of wiring/setup/infrastructure as code) unless we already have it i'd stay clear of it for V1
   - 3 hours is not enough time to roll a massivley scalable solution out but I think it's the wrong thing to start with anyhow, start small, focus on the ingestion
 - Proeducer (ie. the schools) POST to an exposed endpoint
+- https://stackoverflow.com/questions/5606106/what-is-the-maximum-value-size-you-can-store-in-redis
+- https://www.composerize.com/

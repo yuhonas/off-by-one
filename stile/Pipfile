@@ -10,6 +10,7 @@ pytest = "*"
 beautifulsoup4 = "*"
 lxml = "*"
 celery = {extras = ["redis"], version = "*"}
+starlette = "*"
 
 [dev-packages]
 httpx = "*"

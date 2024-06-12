@@ -13,5 +13,5 @@ lint:
 fix:
 	pipenv run black .
 
-test: lint
+test: fix
 	pipenv run python -m pytest

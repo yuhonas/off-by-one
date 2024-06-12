@@ -35,3 +35,9 @@ services:
       test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
       interval: 5s
       timeout: 5s
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:
+
