@@ -21,7 +21,7 @@ def test_post(celery_app):
     malformed_xml = open("./tests/fixtures/test-result.xml")
 
     response = client.post(
-        "/results",
+        "/import",
         content=malformed_xml.read(),
         headers={"Content-Type": "application/xml"},
     )

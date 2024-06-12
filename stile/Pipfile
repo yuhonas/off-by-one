@@ -11,6 +11,7 @@ beautifulsoup4 = "*"
 lxml = "*"
 celery = {extras = ["redis"], version = "*"}
 starlette = "*"
+numpy = "*"
 
 [dev-packages]
 httpx = "*"

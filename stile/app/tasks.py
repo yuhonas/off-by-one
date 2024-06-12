@@ -1,13 +1,5 @@
 from bs4 import BeautifulSoup
 
-#
-# malformed_xml = open("./tests/fixtures/test-result.xml").read()
-# # Parse the malformed XML with BeautifulSoup
-# soup = BeautifulSoup(malformed_xml, features="xml")
-#
-# # Repair the malformed XML by converting HTML entities
-# repaired_xml = soup.prettify
-
 """
 NOTE: Could be broken out into a dependencies.py
 as suggested by FastAPI documentation
@@ -15,6 +7,7 @@ see https://fastapi.tiangolo.com/tutorial/bigger-applications/
 """
 from starlette.config import Config
 from celery import Celery
+import numpy as np
 
 """
 NOTE: Could be moved to it's own settings module
@@ -27,12 +20,24 @@ celery = Celery("tasks", broker=config("REDIS_URL"), result_backend=config("REDI
 
 
 @celery.task
-def add(x, y):
-    print("Adding", x, y, x + y)
-    return x + y
-
-
-@celery.task
 def aggregate_from_xml(xml_data):
     soup = BeautifulSoup(xml_data, features="xml")
-    return {"mean": 100, "count": 100, "p25": 100, "p50": 100, "p75": 100}
+
+    # enumerate through all summary-marks and count the available and obtained
+    # NOTE: What if our results are not integers?
+    results = [
+        (int(summary_mark.attrs["obtained"]) / int(summary_mark.attrs["available"]))
+        * 100
+        for summary_mark in soup.find_all("summary-marks")
+    ]
+
+    # TODO: Rounding
+
+    # calculate our percentiles
+    return {
+        "mean": np.median(results),
+        "count": len(results),
+        "p25": np.percentile(results, 25),
+        "p50": np.percentile(results, 50),
+        "p75": np.percentile(results, 75),
+    }

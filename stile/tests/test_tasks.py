@@ -1,38 +1,21 @@
 import pytest
 from app import main
-from fastapi.testclient import TestClient
-from celery.result import AsyncResult
-
-
-from app.tasks import celery
 from app import tasks
 
-client = TestClient(main.app)
+
+def test_aggregate_from_xml():
+    xml = open("./tests/fixtures/test-result.xml").read()
+    result = tasks.aggregate_from_xml(xml)
+
+    assert result["mean"] == 65.0
+    assert result["p25"] == 65.0
+    assert result["p50"] == 65.0
+    assert result["p75"] == 65.0
+    assert result["count"] == 1
 
 
-# Test fixture to mock out the connection to Redis
-@pytest.fixture(scope="module")
-def celery_app(request):
-    celery.conf.update(CELERY_ALWAYS_EAGER=True)
-    return celery
+def test_multiple_aggregate_from_xml():
+    xml = open("./tests/fixtures/test-result-multiple.xml").read()
+    result = tasks.aggregate_from_xml(xml)
 
-
-def test_post(celery_app):
-    malformed_xml = open("./tests/fixtures/test-result.xml")
-
-    response = client.post(
-        "/results",
-        content=malformed_xml.read(),
-        headers={"Content-Type": "application/xml"},
-    )
-
-    assert response.status_code == 202
-    assert response.headers["content-type"] == "application/json"
-    assert response.json() == {"status": "ok"}
-
-
-def test_health_check():
-    response = client.get("/health")
-    assert response.status_code == 200
-    assert response.headers["content-type"] == "application/json"
-    assert response.json() == {"status": "ok"}
+    assert result["count"] == 2

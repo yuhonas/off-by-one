@@ -144,3 +144,7 @@ TBD
 - Proeducer (ie. the schools) POST to an exposed endpoint
 - https://stackoverflow.com/questions/5606106/what-is-the-maximum-value-size-you-can-store-in-redis
 - https://www.composerize.com/
+
+## Questions
+- do they have a test harness
+
