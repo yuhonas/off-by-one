@@ -1,0 +1,37 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    env_file:
+      - ./.env # break this out as it's shared between services/could be sensitive
+    links:
+      - redis
+    depends_on:
+      redis:
+        condition: service_healthy # ensure our db is up
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery -A app.tasks --broker $REDIS_URL worker --loglevel=DEBUG
+    env_file:
+      - ./.env # break this out as it's shared between services/could be sensitive
+    links:
+      - redis
+    depends_on:
+      redis:
+        condition: service_healthy # ensure our db is up
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    expose:
+      - 6379
+    restart: always
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+      interval: 5s
+      timeout: 5s

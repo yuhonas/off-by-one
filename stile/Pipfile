@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+uvicorn = {extras = ["standard"], version = "*"}
+pytest = "*"
+beautifulsoup4 = "*"
+lxml = "*"
+celery = {extras = ["redis"], version = "*"}
+
+[dev-packages]
+httpx = "*"
+black = "*"
+
+[requires]
+python_version = "3.11"
