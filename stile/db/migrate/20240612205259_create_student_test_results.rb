@@ -12,7 +12,6 @@ class CreateStudentTestResults < ActiveRecord::Migration[7.1]
 
       t.column :marks_available, :float
       t.column :marks_obtained, :float
-      t.column :marks_percentage, :float
       t.column :scanned_on, :datetime
 
       # NOTE: There is an xml data type in postgres, but we are using text as

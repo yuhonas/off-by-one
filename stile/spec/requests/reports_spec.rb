@@ -24,9 +24,18 @@ RSpec.describe 'Reports', type: :request do
       )
     end
 
-    xit 'takes the higher marks_available if two results have the same student_id' do
-      create(:student_test_result, test_id: 1, student_number: 5, marks_available: 7, marks_obtained: 13)
-      create(:student_test_result, test_id: 1, student_number: 5, marks_available: 20, marks_obtained: 13)
+    it 'takes the higher marks_available if two results have the same student_id' do
+      create(:student_test_result, \
+             test_id: 1, \
+             student_number: 5, \
+             marks_available: 7, \
+             marks_obtained: 13)
+
+      create(:student_test_result, \
+             test_id: 1, \
+             student_number: 5, \
+             marks_available: 20, \
+             marks_obtained: 13)
 
       get '/reports/1/aggregate'
       expect(json).to include(

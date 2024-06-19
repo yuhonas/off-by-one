@@ -12,26 +12,30 @@ class StudentTestResultsController < ApplicationController
     # consume a lot of memory, we could consider using a SAX parser or a streaming parser
     doc = Nokogiri::XML(xml)
 
+    result_set = StudentTestResultSet.create!(
+      xml_data: xml,
+      request_id: request.uuid
+    )
+
     # NOTE: This is wrapped in a transaction so it's atomic to ensure that if
     # any of the records fail to save, none of them are saved, the rationale being is
     # that I dont want to have to deal with partial data being saved
     # if this DOES fail, the client will get a 422 (the most important thing) however
     # the response body won't be JSON but we should talk further about the DX here
-    StudentTestResult.transaction do
-      doc.css('mcq-test-result').each do |node|
-        # OPTIMIZE: This will result in O(N) INSERT'S and won't be performant for 'large' record
-        # sets we could consider using a bulk insert statement such as UPSERT (which would require pre-validation)
-        # or something like https://github.com/zdennis/activerecord-import
-        StudentTestResult.create!(
-          student_number: node.at_css('student-number')&.text,
-          test_id: node.at_css('test-id')&.text,
-          marks_available: node.at_css('summary-marks')&.[]('available'),
-          marks_obtained: node.at_css('summary-marks')&.[]('obtained'),
-          xml_data: xml,
-          scanned_on: node['scanned-on']
-        )
-      end
+    doc.css('mcq-test-result').each do |node|
+      # OPTIMIZE: This will result in O(N) INSERT'S and won't be performant for 'large' record
+      # sets we could consider using a bulk insert (which would require pre-validation)
+      # or something like https://github.com/zdennis/activerecord-import
+      result_set.student_test_results.build(
+        student_number: node.at_css('student-number')&.text,
+        test_id: node.at_css('test-id')&.text,
+        marks_available: node.at_css('summary-marks')&.[]('available'),
+        marks_obtained: node.at_css('summary-marks')&.[]('obtained'),
+        scanned_on: node['scanned-on']
+      )
     end
+
+    result_set.save!
 
     render status: :ok
   end

@@ -92,16 +92,11 @@ GEM
     drb (2.2.1)
     enumerable-statistics (2.0.8)
     erubi (1.12.0)
-    et-orbi (1.2.11)
-      tzinfo
     factory_bot (6.4.6)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.4.3)
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
-    fugit (1.11.0)
-      et-orbi (~> 1, >= 1.2.11)
-      raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.5)
@@ -158,7 +153,6 @@ GEM
       stringio
     puma (6.4.2)
       nio4r (~> 2.0)
-    raabro (1.4.0)
     racc (1.8.0)
     rack (3.1.3)
     rack-session (2.0.0)
@@ -249,12 +243,6 @@ GEM
       rbs (>= 3, < 4)
       sorbet-runtime (>= 0.5.10782)
     ruby-progressbar (1.13.0)
-    solid_queue (0.3.3)
-      activejob (>= 7.1)
-      activerecord (>= 7.1)
-      concurrent-ruby (>= 1.3.1)
-      fugit (~> 1.11.0)
-      railties (>= 7.1)
     sorbet-runtime (0.5.11429)
     stringio (3.1.0)
     strscan (3.1.0)
@@ -289,7 +277,6 @@ DEPENDENCIES
   rspec-rails (~> 6.1.0)
   rubocop-rails
   ruby-lsp
-  solid_queue
   tzinfo-data
 
 RUBY VERSION
