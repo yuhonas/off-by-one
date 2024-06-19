@@ -6,9 +6,14 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - ./.env # break this out as it's shared between services/could be sensitive
+      - ./.env # break this out as it's shared between services/contains secrets
     links:
       - db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/up"] # ensure our app is up
+      interval: 5s
+      timeout: 5s
+      retries: 5
     depends_on:
       db:
         condition: service_healthy # ensure our db is up

@@ -1,9 +1,11 @@
 class ReportsController < ApplicationController
   def aggregate
-    # OPTIMIZE: This far from optimal, having to scan through all the students records to find the "valid" ones
-    # then calculating the percentage for each one, this is simply a first pass and would be great to discuss
-    # Some options to optimize could be a materialized view, or a cache (application, CDN), a more performant query or
-    # simply having the data model's in a more querable state for this type of reporting
+    # OPTIMIZE: This is far from optimal, a naive solution even, having to scan through all the
+    # students records to find the "valid" ones then calculating the percentage for each one
+    # this is simply a first pass and would be great to discuss.
+    #
+    # Some options to optimize could be a materialized view, or a cache (application, CDN), a more performant query
+    # or simply having the data modeling in a more queryable state for this type of reporting
     # We either do the work up front, do it later, or do it less often with caching
     # Performance will be O(n) for the size of the result set
 
@@ -15,7 +17,8 @@ class ReportsController < ApplicationController
     # NOTE: Will return 0 even for test_id's that do not exist
     # Rather then returning 404
 
-    # OPTIMIZE: I'm unsure of how computationally expensive the number manipulation is particulary
+    # OPTIMIZE: I'm unsure of how computationally expensive the number manipulation is but I would assume
+    # the DB will be the bottleneck serving this at scale, given in particular there is no record limit
     report = if results.empty?
                {
                  "count": 0,

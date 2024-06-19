@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get 'up' => 'rails/health#show', as: :rails_health_check
 
-  # NOTE: Not very restful but i'll keep it consistent for simplicity
+  # NOTE: Not very RESTFUL but i'll keep it consistent for simplicity
   post 'import', to: 'student_test_results#import'
 
   get 'reports/:test_id/aggregate', to: 'reports#aggregate'

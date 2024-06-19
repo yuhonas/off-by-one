@@ -2,7 +2,8 @@ class StudentTestResultsController < ApplicationController
   before_action :ensure_markr_request
 
   def import
-    # FIXME: shouldn't need to check for xml in params but will do for now
+    # FIXME: I'm unable to get POST'ing to the body working in test's only from params
+    # but ran out of time to debug, forgive me 😇
     xml = params[:xml]&.read || request.body.read
 
     # NOTE: I'm assuming that the XML is well-formed and valid (we can discuss what happens when it's not)
@@ -26,6 +27,7 @@ class StudentTestResultsController < ApplicationController
       # OPTIMIZE: This will result in O(N) INSERT'S and won't be performant for 'large' record
       # sets we could consider using a bulk insert (which would require pre-validation)
       # or something like https://github.com/zdennis/activerecord-import
+      # or simply defer it into a background job or wait for an ETL pipeline to process it
       result_set.student_test_results.build(
         student_number: node.at_css('student-number')&.text,
         test_id: node.at_css('test-id')&.text,
