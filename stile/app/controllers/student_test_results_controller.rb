@@ -13,6 +13,9 @@ class StudentTestResultsController < ApplicationController
     # consume a lot of memory, we could consider using a SAX parser or a streaming parser
     doc = Nokogiri::XML(xml)
 
+    # NOTE: Store the entire original XML document, this will take up space but
+    # we absolutely need the flexability to be able to re-process the data
+    # if there's a new discovery/something isn't right
     result_set = StudentTestResultSet.create!(
       xml_data: xml,
       request_id: request.uuid

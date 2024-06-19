@@ -2,16 +2,16 @@ class CreateStudentTestResults < ActiveRecord::Migration[7.1]
   def change
     create_table :student_test_results do |t|
       # NOTE: We have no guarantee that the student number or test_id is unique or numeric
-      t.column :student_number, :string
-      t.column :test_id, :string
+      t.column :student_number, :string, null: false
+      t.column :test_id, :string, null: false
 
       # NOTE: The calculations on these could be cached in counter columns or
       # an alternative method depending on how often they are accessed
       # we will also never perform a full table scan on these columns as "at present"
       # a subset by test_id which is indexed will be used
 
-      t.column :marks_available, :float
-      t.column :marks_obtained, :float
+      t.column :marks_available, :float, null: false
+      t.column :marks_obtained, :float, null: false
       t.column :scanned_on, :datetime
 
       # NOTE: There is an xml data type in postgres, but we are using text as

@@ -22,15 +22,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_18_231353) do
   end
 
   create_table "student_test_results", force: :cascade do |t|
-    t.string "student_number"
-    t.string "test_id"
-    t.integer "marks_available"
-    t.integer "marks_obtained"
+    t.string "student_number", null: false
+    t.string "test_id", null: false
+    t.float "marks_available", null: false
+    t.float "marks_obtained", null: false
     t.datetime "scanned_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "student_test_result_set_id"
-    t.index ["student_number"], name: "index_student_test_results_on_student_number"
+    t.index ["student_number", "test_id"], name: "index_student_test_results_on_student_number_and_test_id"
     t.index ["student_test_result_set_id"], name: "index_student_test_results_on_student_test_result_set_id"
     t.index ["test_id"], name: "index_student_test_results_on_test_id"
   end

@@ -1,6 +1,8 @@
 class StudentTestResult < ApplicationRecord
   belongs_to :student_test_result_set
 
+  # NOTE: Validations could be tightened up further with type
+  # checking and other constraints as we learn more
   validates :student_number,
             :test_id,
             :marks_available,

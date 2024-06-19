@@ -4,11 +4,11 @@ ___Where did all that Series B Money Go?___
 
 ## Background
 
-See [BACKGROUND.md](./BACKGROUND.md)
+I enjoyed this test, it was well written with many wtf's that do in fact happen IRL and an abundance of conversation starters, I had a laugh so i've responded in kind, See also [BACKGROUND.md](./BACKGROUND.md)
 
 ## Requirements
 
-I enjoyed this test, it was well written with many wtf's that do in fact happen IRL and an abundance of conversation starters, I broke the requirements out into a TODO list see [REQUIREMENTS.md](./REQUIREMENTS.md)
+I broke the requirements out into a `TODO` list see [REQUIREMENTS.md](./REQUIREMENTS.md)
 
 ## Getting started
 
@@ -43,9 +43,9 @@ You can run a development server using
 ./bin/rails server
 ```
 
-#### Testing
+### Testing
 
-You can run the full [Rspec](https://rspec.info/) test suite with
+You can run the full [RSpec](https://rspec.info/) test suite with
 
 ```
 bundle exec rspec
@@ -61,6 +61,8 @@ To build the docker container and expose port [3000](./compose.yml#7) to access 
 docker compose up --build
 ```
 
+See also [compose.yml](./compose.yml)
+
 ## Design Goals
 
 3 hours is not a long time, so I had a few goals in mind
@@ -71,10 +73,11 @@ docker compose up --build
 - Optimize for conversation, engineering always involves compromises, let's chat about them
 - Less is more, I may be able to solve this without code (or less of it) so let's expend a little time to include
   1. Is there any "out of the box solutions" to solve this, if so, great, let's do that whilst also avoiding [Not Invented Here](https://en.wikipedia.org/wiki/Not_invented_here)
-  2. If I need to build it what's the write tool for the job, I favoured python/node api frameworks due to popular usage but I looked at express (node)/fastapi (python) amongst others with an eye for how much I can get "out of the box"
-  3. Once that framework is found let's keep it simple even at the cost of performance to optimize for serviceability
-- Did I spend more then 3 hours... yes, but happy to chat about those constraints/why 😆
+  2. If I need to build it what's the write tool for the job, I favoured python/node api frameworks due to popular usage so I looked at express (node)/fastapi (python) amongst others with an eye for maxing out existing technology leverage
+  3. Once that framework is found let's keep it simple even at the cost of performance to optimize for serviceability, who knows who will be building on it, start simple
 - Replayability, with all the unknowns, we're most likely going to get it wrong, that's ok, as long as we can course correct
+
+Did I spend more then 3 hours... yes, but happy to chat about those constraints/what that would mean professionally and why I spent more 😆
 
 I settled on Rails with bare bones api generation using `rails new stile --api` as it had
 * A language i've been coding in recently
@@ -91,22 +94,37 @@ But it didn't have any auto generated [openapi documentation](https://www.openap
 * That we have some lovely SOA template to bootstrap off and this was based on it
 * That I don't need to worry about deployment and container orchestration and we're using something like kubernetes or amazon fargate etc.
 * That even though we'll do our best to respond with all the appropriate response codes, the clients may not obey them
+* That catering for "Not paying the AWS bill" and needing persistent storage is simply having a DB persisted on disk, not in memory, although being in arrears for long enough will mean eventual data loss unless we have off-site backup with someone else we're not in arrears with 🤷‍♂️
 * That any judgements made about design/coding choices i've made will be discussed
+
+### Notes
+
+I've left plenty of comments throughout the code around things I feel are key to my decision making process
+
+You can either discover them file by file or run
+
+```
+./bin/rails notes
+```
+
+To get a list of all of them
+
 
 ## Observations
 
-The XML Example has a [syntax error](./tests/fixtures/test-result.xml)
+The XML Example has a [syntax error](./BACKGROUND.md#sample)
 
 ```
 11:	46	Element type "answer" must be followed by either attribute specifications, ">" or "/>".
 ```
 
-So it did highlight that we'll need the most lenient parser we can find
+So if this was deliberate, I took the bait and it did highlight that may need the most lenient parser we can find
 
 ## Limitations
 
 At present there are the following limitations
 
+* We have a rogue CEO that despite Series B funding we're cutting corners on security and hosting (it can happen)
 * We have no XML schema so type/correctness can only be assumed, we're bound to run into all sorts of XML parsing fun and broken assumptions but as long as we know about these and don't back ourselves into a corner we'll learn and improve
 * No control of clients so retries/associated response code might not be obeyed
 
@@ -115,7 +133,7 @@ At present there are the following limitations
 
 First of all no SSL from the boss? 😆 props to who-ever wrote that, I honestly think these days it maybe harder to _NOT_ implement SSL then to, I think the better question maybe to ask where does the SSL terminate given we're using SOA's I would assume some set of load balancers/routing layer but in any case if we didn't that's just a risk/impact discussion with technical/non technical stakeholders
 
-As for everything else it almost deserves it's own section given there is a significant attack vector and the chance for a BEE (Business Ending Event) if we don't take this seriously, student records and [PII](https://en.wikipedia.org/wiki/Personal_data) but as with all thing's we can take a risk based approach, happy to discuss
+As for everything else it almost deserves it's own section, given there is a significant attack surface and the chance for a BEE (Business Ending Event) if we don't take this seriously, student records and [PII](https://en.wikipedia.org/wiki/Personal_data) but as with all thing's we can take a risk based approach, happy to discuss
 
 ## Performance
 
@@ -131,12 +149,13 @@ Doing this _at scale_ the first thing to do (given we need it and this should be
 
 * Ingestion - ___Consuming that Data via some method in this case `HTTP`___
 * Data Transformation - ___Clensing/Normalising/Transforming that data into something usable for us___
-* Reporting - __Generating/Enabling some kind of human readable report on it___
+* Reporting - ___Generating some kind of human readable report on it___
 
-There are many design patterns for this and it can get architectually quite complex but in general it involves utiling usually
+There are many design patterns for this and it can get architectually quite complex but in general it involves many of the following amongst others
 
+- A bunch of services to operate asynchronously on data during lifecycle events
 - Some kind of event streaming platform for ingesting that data at scale eg. Kafka
-- Some kind of SNS/pubsub type platform for event publishing/subscribing for decoupled processing of key events, ie. the wiring
+- Some kind of SNS/pubsub type platform for decoupled signally of key events, ie. the wiring between services
 - An [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load) Pipeline of some description, like what I used on my [resume in spotify's luigi](https://github.com/yuhonas/clintp.xyz/blob/main/resume/resume-transform.py) on my [personal website](https://clintp.xyz/)
 
 Some kind of CI/CD Pipeline for this would be great too, with publication to a [Docker Registry](https://docs.github.com/en/actions/publishing-packages/publishing-docker-images) which would speed up development/deployment as I did with my [dotfiles](https://github.com/yuhonas/dotfiles/pkgs/container/dotfiles%2Fdotfiles-minimal)
@@ -155,17 +174,7 @@ To ensure we have
 
 There maybe hosted solutions or something to bootstrap us towards solving some of these problems, I would prioritize these in the early stages (condtionally) to avoid baking our own solutions/architecture if we didn't need too
 
-## Links
 
-* https://www.linkedin.com/advice/1/what-some-common-data-integrity-issues-how-can-jsclf
-* https://datatest.readthedocs.io/en/stable/
-* https://www.montecarlodata.com/
-* Uploading files to S3 - https://medium.com/@mybytecode/simplified-aws-fastapi-s3-file-upload-3db69431f806 (Skip the round trip to the server)
+## FIN (The End)
 
-
-- Roll our own (lots of wiring/setup/infrastructure as code) unless we already have it i'd stay clear of it for V1
-  - 3 hours is not enough time to roll a massivley scalable solution out but I think it's the wrong thing to start with anyhow, start small, focus on the ingestion
-- Proeducer (ie. the schools) POST to an exposed endpoint
-- https://stackoverflow.com/questions/5606106/what-is-the-maximum-value-size-you-can-store-in-redis
-- https://www.composerize.com/
-
+That's it folks, I hope you enjoyed my attempt at the stile code test 🙌
